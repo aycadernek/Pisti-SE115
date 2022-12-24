@@ -48,3 +48,13 @@ public class Deck {
         }
         return new_deck;
     }
+	public Deck additem(String suit, String value) {
+        Deck new_deck = new Deck(deck.length + 1);
+        for (int i = 0; i < deck.length; i++) {
+            new_deck.cardindeck(i).setValue(deck[i].getValue());
+            new_deck.cardindeck(i).setSuit(deck[i].getSuit());
+        }
+        new_deck.cardindeck(deck.length).setValue(value);
+        new_deck.cardindeck(deck.length).setSuit(suit);
+        return new_deck;
+    }
