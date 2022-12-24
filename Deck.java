@@ -34,3 +34,17 @@ public class Deck {
     public Card cardindeck(int i) {
         return deck[i];
     }
+	public Deck delitem(int a) {
+        Deck new_deck = new Deck(deck.length - 1);
+        int delete = a;
+        int index = 0;
+        for (int i = 0; i < deck.length; i++) {
+            if (i == delete) {
+                continue;
+            }
+            new_deck.cardindeck(index).setValue(deck[i].getValue());
+            new_deck.cardindeck(index).setSuit(deck[i].getSuit());
+            index++;
+        }
+        return new_deck;
+    }
