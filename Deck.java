@@ -83,3 +83,11 @@ public class Deck {
         return new_deck;
 
     }
+	public Deck dealcard(){
+        Deck hand = new Deck(0);
+        for (int i = 0 ; i <4 ; i++) {
+            hand= hand.additem(deck[i].getSuit(), deck[i].getValue());
+        }
+        return hand;
+     }
+}
