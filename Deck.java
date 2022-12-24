@@ -58,3 +58,17 @@ public class Deck {
         new_deck.cardindeck(deck.length).setSuit(suit);
         return new_deck;
     }
+	
+	public Deck shuffle() {
+        Random r = new Random();
+        Deck new_deck = new Deck(0);
+        int num = 52;
+        Deck ndeck = new Deck(52);
+        for (int i = 0; i < 52; i++) {
+            int a = r.nextInt(num);
+            new_deck = new_deck.additem(ndeck.cardindeck(a).getSuit(), ndeck.cardindeck(a).getValue());
+            ndeck = ndeck.delitem(a);
+            num = num - 1;
+        }
+        return new_deck;
+    }
