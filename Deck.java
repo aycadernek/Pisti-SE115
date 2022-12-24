@@ -21,3 +21,16 @@ public class Deck {
             }
         }
     }
+	public void seeDeck() {  
+        for (int i = 0; i < deck.length; i++) {
+            deck[i].seecard();
+        }
+    }
+
+    public int decklength() {
+        return deck.length;
+    }
+
+    public Card cardindeck(int i) {
+        return deck[i];
+    }
