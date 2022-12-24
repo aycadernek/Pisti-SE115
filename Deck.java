@@ -72,3 +72,14 @@ public class Deck {
         }
         return new_deck;
     }
+	public Deck cutdeck(int a){
+        Deck new_deck = new Deck(0);
+        for (int i = a ; i <deck.length ; i++) {
+            new_deck=new_deck.additem(deck[i].getSuit(), deck[i].getValue());
+        }
+        for (int i = 0 ; i<a ; i++) {
+            new_deck=new_deck.additem(deck[i].getSuit(), deck[i].getValue());
+        }
+        return new_deck;
+
+    }
