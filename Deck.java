@@ -83,11 +83,24 @@ public class Deck {
         return new_deck;
 
     }
-	public Deck dealcard(){
+    // deal card has been removed from the code.
+    /*public Deck dealcard(){
         Deck hand = new Deck(0);
         for (int i = 0 ; i <4 ; i++) {
             hand= hand.additem(deck[i].getSuit(), deck[i].getValue());
         }
         return hand;
-     }
+    }*/
+    public void showboard(){
+        if (deck.length==0){
+            System.out.println("\n");
+        }else{
+            deck[deck.length-1].seecard();
+            System.out.println("\t");
+            for(int i =0; i<(deck.length-1);i++){
+                deck[i].seecard();
+            }
+        }
+    }
+
 }
