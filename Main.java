@@ -3,12 +3,25 @@ import java.util.Scanner;
 public class Main {
     
     public static void main(String[] args) {
+		
         Random r = new Random();
         Scanner sc= new Scanner(System.in);
+		
+		System.out.println("Welcome to Pişti game.Please enter your name");
+        String name= sc.nextLine();
+		
         while (true) {
-            System.out.print("Hi. Welcome to the Pişti. Please write 1 to start new game ," +
-                    " 2 for leaderboard, 3 to see the game rules , 4 to exit game.\n");
-            int process = sc.nextInt();
+			int process;
+			
+            Swhile(true){
+                System.out.print("\nHi "+name+". Please write 1 to start New Game ," +
+                        " 2 for Leaderboard, 3 to see the Game Rules , 4 to Exit game.\n");
+                process = sc.nextInt();
+                if (process==1||process==2||process==3||process==4){
+                    break;
+                }
+            }
+			
             switch (process) {
                 case 4:
                     System.out.print("exiting...");
@@ -92,9 +105,16 @@ public class Main {
                                 System.out.println("My Cards:");
                                 user_deck.seeDeck();
                                 int boardl = board.decklength();
-                                System.out.println("\nWhich card would you like to discard?(1,2,3,4)");
-                                int card = sc.nextInt();
-                                card = card - 1;
+                                int card ;
+                                
+								while(true){
+                                    System.out.println("\nWhich card would you like to discard?(1,2,3,4)");
+                                    card = sc.nextInt();
+                                    if ((card<=user_deck.decklength())&&(card==1||card==2||card==3||card==4)){
+                                        card = card - 1;
+                                        break;
+                                    }
+                                }
 
                                 if (board.decklength() != 0) {
                                     if (user_deck.cardindeck(card).getValue().equals(board.cardindeck(board.decklength() - 1).getValue())) {
