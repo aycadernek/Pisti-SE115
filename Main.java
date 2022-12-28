@@ -13,7 +13,7 @@ public class Main {
         while (true) {
 			int process;
 			
-            Swhile(true){
+            while(true){
                 System.out.print("\nHi "+name+". Please write 1 to start New Game ," +
                         " 2 for Leaderboard, 3 to see the Game Rules , 4 to Exit game.\n");
                 process = sc.nextInt();
@@ -110,14 +110,12 @@ public class Main {
                  
                         while (user_deck.decklength() != 0 || pc_deck.decklength() != 0) {
 							
-                            if (flag) {
-								
+                            if (flag) {								
                                 System.out.println("\nYour turn");
                                 System.out.println("My Cards:");
                                 user_deck.seeDeck();
-                                int boardl = board.decklength();
-                                int card ;
-                                
+                                int card ; 
+								
 								while(true){
                                     System.out.println("\nWhich card would you like to discard?(1,2,3,4)");
                                     card = sc.nextInt();
@@ -126,37 +124,37 @@ public class Main {
                                         break;
                                     }
                                 }
+								
+								released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
 
                                 if (board.decklength() != 0) {
                                     if (user_deck.cardindeck(card).getValue().equals(board.cardindeck(board.decklength() - 1).getValue())) {
                                         if (board.decklength() == 1) {
                                             System.out.println("Pişti");
                                             user_score = user_score + 10;
-											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
-                                            released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
+											
                                             board = board.delitem(board.decklength() - 1);
                                             last = true;
                                         } else {
                                             System.out.println("You got the cards on the board.");
-                                            for (int i = 0; i < boardl; i++) {
+                                             for (int i = 0; i < board.decklength();) {
                                                 user_cards = user_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
-												released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
+												
                                                 board = board.delitem(0);
                                                 last = true;
                                             }
 											user_cards = user_cards.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
-                                            released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
+                                           
                                         }
                                     } else if (user_deck.cardindeck(card).getValue().equals("J")) {
                                         System.out.println("You got the cards on the board.");
-                                        for (int i = 0; i < boardl; i++) {
+                                        for (int i = 0; i < board.decklength();) {
                                             user_cards = user_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
-											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
+											
                                             board = board.delitem(0);
                                             last = true;
                                         }
 										user_cards = user_cards.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
-                                        released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
 
                                     } else {
                                         board = board.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
@@ -164,73 +162,63 @@ public class Main {
                                 } else {
                                     board = board.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
                                 }
+								
                                 user_deck = user_deck.delitem(card);
                                 System.out.println("Board:");
                                 board.showboard();
                             
                                 flag = false;
-                            } else {
+								
+                            } else {								
                                 System.out.println("\nComputers turn");
-                                System.out.println("The computer makes its move...");
-                                int boardl = board.decklength();
-                                int card;
-                                if (board.decklength() == 0) {
-                                    Card a = new Card("c", "c");
-                                    card = pc.throwcard(pc_deck, a);
-                                } else {
-                                    card = pc.throwcard(pc_deck, board.cardindeck((board.decklength() - 1)));
-                                }
+                                System.out.println("The computer makes its move...");                                
+                                int card;								
+                                card = pc.throwcard(board, pc_deck,released_cards);
+								
+                                released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
+								
                                 System.out.println("The computer plays");
                                 pc_deck.cardindeck(card).seecard();
+								
                                 if (board.decklength() != 0) {
                                     if (pc_deck.cardindeck(card).getValue().equals(board.cardindeck((board.decklength() - 1)).getValue())) {
                                         if (board.decklength() == 1) {
                                             System.out.println("\nComputer made Pişti");
                                             pc_score = pc_score + 10;
-											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
-                                            released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
                                             board = board.delitem((board.decklength() - 1));
                                             last = false;
                                         } else {
                                             System.out.println("\nComputer got the cards on the board.");
-                                            for (int i = 0; i < boardl; i++) {
+                                           for (int i = 0; i < board.decklength();) {
                                                 pc_cards = pc_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
-												released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
                                                 board = board.delitem(0);
                                                 last = false;
                                             }
-											released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
                                             pc_cards = pc_cards.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
                                         }
                                     } else if (pc_deck.cardindeck(card).getValue().equals("J")) {
                                         System.out.println("\nComputer got the cards on the board.");
-                                        for (int i = 0; i < boardl; i++) {
+                                        for (int i = 0; i < board.decklength(); ) {
                                             pc_cards = pc_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
-											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
                                             board = board.delitem(0);
                                             last = false;
                                         }
-										released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
                                         pc_cards = pc_cards.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
-
                                     } else {
                                         board = board.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
-                                    }
-									
+                                    }									
                                 } else {
                                     board = board.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
                                 }
+								
                                 pc_deck = pc_deck.delitem(card);
                                 System.out.println("\nBoard:");
                                 board.showboard();
-
                                 flag = true;
                             }
-
                         }
-
-
                     }
+					
                     System.out.println("\nGame finished");
 
                     if (last==true) {
