@@ -34,6 +34,9 @@ public class Main {
                     break;
 					
                 case 2:
+				
+				    ScoreTable scoretable= new ScoreTable();
+                    scoretable.readtable();
                     
                     break;
 					
@@ -250,13 +253,12 @@ public class Main {
                     } else if (pc_cards.decklength() > user_cards.decklength()) {
                         pc_score = pc_score + 3;
                     }
+					
                     for (int i = 0; i < user_cards.decklength(); i++) {
                         if (user_cards.cardindeck(i).getValue().equals("10") && user_cards.cardindeck(i).getSuit().equals("♦")) {
                             user_score = user_score + 3;
-
                         } else if (user_cards.cardindeck(i).getValue().equals("2") && user_cards.cardindeck(i).getSuit().equals("♣")) {
                             user_score = user_score + 2;
-
                         } else {
                             user_score = user_score + 1;
                         }
@@ -265,28 +267,27 @@ public class Main {
                     for (int i = 0; i < pc_cards.decklength(); i++) {
                         if (pc_cards.cardindeck(i).getValue().equals("10") && pc_cards.cardindeck(i).getSuit().equals("♦")) {
                             pc_score = pc_score + 3;
-
                         } else if (pc_cards.cardindeck(i).getValue().equals("2") && pc_cards.cardindeck(i).getSuit().equals("♣")) {
                             pc_score = pc_score + 2;
-
                         } else {
                             pc_score = pc_score + 1;
                         }
                     }
 
                     if (user_score > pc_score) {
-                        System.out.println("you win");
-                        System.out.println("your score is" + user_score);
-                        System.out.println("pc's score is" + pc_score);
+                        System.out.println("you win");                       
                     } else if (user_score < pc_score) {
-                        System.out.println("pc win");
-                        System.out.println("your score is" + user_score);
-                        System.out.println("pc's score is" + pc_score);
+                        System.out.println("pc win");                        
                     } else {
-                        System.out.println("draw");
-                        System.out.println("your score is" + user_score);
-                        System.out.println("pc's score is" + pc_score);
+                        System.out.println("draw");                        
                     }
+					System.out.println("your score is" + user_score);
+                    System.out.println("pc's score is" + pc_score);
+					
+					scoretable= new ScoreTable();
+                    Score user = new Score(name,user_score);
+                    scoretable.updatetable(user).write();
+                    scoretable.readtable();
 
                     break;
 
