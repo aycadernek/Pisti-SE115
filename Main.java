@@ -24,16 +24,21 @@ public class Main {
 			
             switch (process) {
                 case 4:
+				
                     System.out.print("exiting...");
                     System.exit(0);
                     break;
+					
                 case 3:
                     
                     break;
+					
                 case 2:
                     
                     break;
+					
                 case 1:
+				
                     PC pc = new PC();
                     int user_score = 0;
                     int pc_score = 0;
@@ -47,10 +52,13 @@ public class Main {
                     boolean flag=true;
                     boolean last=true;
                     int sign=1;// if it is one this means wehave deal card to the board.
+					Deck released_cards= new Deck(0);
+					
 
                     System.out.println("The game begins...");
                     System.out.println("who starts the game.( 1 for \"pc\" or 2 for \"user\")");
                     int starts = sc.nextInt();
+					
                     if (starts == 2) {
                         System.out.println("Where to cut the deck.(Please write an intiger value.)");
                         int cut_index = sc.nextInt();
@@ -94,13 +102,13 @@ public class Main {
                             }
                         }
 
-                        
                         System.out.println("Board:");
                         board.showboard();
                  
-
                         while (user_deck.decklength() != 0 || pc_deck.decklength() != 0) {
+							
                             if (flag) {
+								
                                 System.out.println("\nYour turn");
                                 System.out.println("My Cards:");
                                 user_deck.seeDeck();
@@ -121,23 +129,31 @@ public class Main {
                                         if (board.decklength() == 1) {
                                             System.out.println("Pişti");
                                             user_score = user_score + 10;
+											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
+                                            released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
                                             board = board.delitem(board.decklength() - 1);
                                             last = true;
                                         } else {
                                             System.out.println("You got the cards on the board.");
                                             for (int i = 0; i < boardl; i++) {
                                                 user_cards = user_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
+												released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
                                                 board = board.delitem(0);
                                                 last = true;
                                             }
+											user_cards = user_cards.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
+                                            released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
                                         }
                                     } else if (user_deck.cardindeck(card).getValue().equals("J")) {
                                         System.out.println("You got the cards on the board.");
                                         for (int i = 0; i < boardl; i++) {
                                             user_cards = user_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
+											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
                                             board = board.delitem(0);
                                             last = true;
                                         }
+										user_cards = user_cards.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
+                                        released_cards=released_cards.additem(user_deck.cardindeck(card).getSuit(),user_deck.cardindeck(card).getValue());
 
                                     } else {
                                         board = board.additem(user_deck.cardindeck(card).getSuit(), user_deck.cardindeck(card).getValue());
@@ -168,27 +184,36 @@ public class Main {
                                         if (board.decklength() == 1) {
                                             System.out.println("\nComputer made Pişti");
                                             pc_score = pc_score + 10;
+											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
+                                            released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
                                             board = board.delitem((board.decklength() - 1));
                                             last = false;
                                         } else {
                                             System.out.println("\nComputer got the cards on the board.");
                                             for (int i = 0; i < boardl; i++) {
                                                 pc_cards = pc_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
+												released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
                                                 board = board.delitem(0);
                                                 last = false;
                                             }
+											released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
+                                            pc_cards = pc_cards.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
                                         }
                                     } else if (pc_deck.cardindeck(card).getValue().equals("J")) {
                                         System.out.println("\nComputer got the cards on the board.");
                                         for (int i = 0; i < boardl; i++) {
                                             pc_cards = pc_cards.additem(board.cardindeck(0).getSuit(), board.cardindeck(0).getValue());
+											released_cards=released_cards.additem(board.cardindeck(0).getSuit(),board.cardindeck(0).getValue());
                                             board = board.delitem(0);
                                             last = false;
                                         }
+										released_cards=released_cards.additem(pc_deck.cardindeck(card).getSuit(),pc_deck.cardindeck(card).getValue());
+                                        pc_cards = pc_cards.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
 
                                     } else {
                                         board = board.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
                                     }
+									
                                 } else {
                                     board = board.additem(pc_deck.cardindeck(card).getSuit(), pc_deck.cardindeck(card).getValue());
                                 }
